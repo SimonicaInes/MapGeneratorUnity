@@ -23,9 +23,9 @@ MapGeneratorPluginDLL/*.a
 MapGeneratorPluginDLL/*.lib
 
 # Executables
-MapGeneratorPluginDLL/*.exe
-MapGeneratorPluginDLL/*.out
-MapGeneratorPluginDLL/*.app
+#MapGeneratorPluginDLL/*.exe
+#MapGeneratorPluginDLL/*.out
+#MapGeneratorPluginDLL/*.app
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
@@ -81,8 +81,8 @@ UnityMapGenerator/*.mdb.meta
 UnityMapGenerator/sysinfo.txt
 
 # Builds
-UnityMapGenerator/*.apk
-UnityMapGenerator/*.unitypackage
+#UnityMapGenerator/*.apk
+#UnityMapGenerator/*.unitypackage
 
 # Crashlytics generated file
 UnityMapGenerator/crashlytics-build.properties

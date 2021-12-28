@@ -1,22 +1,30 @@
-#if _MSC_VER // this is defined when compiling with Visual Studio
-#define EXPORT_API __declspec(dllexport) // Visual Studio needs annotating exported functions with this
-#else
-#define EXPORT_API // XCode does not need annotating exported functions, so define is empty
-#endif
+//unity interface
+#include "IUnityGraphics.h"
+#include "IUnityInterface.h"
+
 
 // ------------------------------------------------------------------------
 // Plugin itself
 
 
-// Link following functions C-style (required for plugins)
-extern "C"
+// Link following functions C-style (reqired for plugins)
+extern "C" 
 {
 
 
-EXPORT_API int PrintMyNumber(){
-	return 7;
+   
+
+
+
+
+
+    void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginLoad(IUnityInterfaces* unityInterfaces)
+    {
+         IUnityGraphics* graphics = unityInterfaces->Get<IUnityGraphics>();
+    }
+
+    void UNITY_INTERFACE_EXPORT UNITY_INTERFACE_API UnityPluginUnload()
+    {
+
+    }
 }
-
-
-
-} // end of export C block
