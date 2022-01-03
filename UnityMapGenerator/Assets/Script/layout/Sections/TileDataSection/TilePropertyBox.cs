@@ -1,8 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 
 
 public class TilePropertyBox : EditorWindow

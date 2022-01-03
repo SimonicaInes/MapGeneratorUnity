@@ -1,7 +1,5 @@
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
 using System;
 
 public class LabelTextBox : EditorWindow
@@ -17,7 +15,6 @@ public class LabelTextBox : EditorWindow
         {
             style = 
             {
-                //backgroundColor = new Color(0, 0, 255),
                 alignSelf = Align.Center,
             }
         };

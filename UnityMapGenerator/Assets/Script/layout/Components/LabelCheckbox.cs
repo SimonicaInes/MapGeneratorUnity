@@ -1,9 +1,6 @@
 using UnityEditor;
-using UnityEngine;
 using UnityEngine.UIElements;
-using UnityEngine.UI;
-using UnityEditor.UIElements;
-using System;
+
 
 public class LabelCheckbox : EditorWindow
 {

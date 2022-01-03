@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
-using UnityEditor.UIElements;
+
 using System.Collections.Generic;
 
 public class TilePropertiesLayout : EditorWindow
@@ -36,8 +36,8 @@ public class TilePropertiesLayout : EditorWindow
             style = 
             {
                 flexDirection = FlexDirection.Column,
-                borderBottomColor = Color.gray,
-                borderBottomWidth = 0.1f,
+                borderTopColor = Color.gray,
+                borderTopWidth = 0.1f,
                 marginBottom = 20,
                 paddingBottom = 5,
 
@@ -50,6 +50,8 @@ public class TilePropertiesLayout : EditorWindow
             style = 
             {
                 flexDirection = FlexDirection.Column,
+                paddingTop = 5,
+                paddingBottom = 5  
             }
         }; 
 
