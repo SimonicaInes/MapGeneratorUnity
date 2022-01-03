@@ -8,7 +8,7 @@ public class LabelTextBox : EditorWindow
     private Label label;
     private VisualElement mainContainer;
     private string labelText;
-    public LabelTextBox(string labelText)
+    public void Init(string labelText)
     {
         this.labelText = labelText;
         label = new Label(labelText)

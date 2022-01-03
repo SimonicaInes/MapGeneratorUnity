@@ -108,12 +108,17 @@ public class TilePropertyBox : EditorWindow
 
         //END BUTTON CREATION
 
-        resourceFolderName = new LabelTextBox("Tiles resource folder");
+        resourceFolderName = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
+        resourceFolderName.Init ("Tiles resource folder");
 
-        damageField = new LabelCheckboxValue("Damage");
-        speedField = new LabelCheckboxValue("Speed");
-        regenerationField = new LabelCheckboxValue("Regeneration");
-        diggingField = new LabelCheckbox("Dig");
+        damageField = EditorWindow.CreateInstance("LabelCheckboxValue") as LabelCheckboxValue; 
+        damageField.Init("Damage");
+        speedField = EditorWindow.CreateInstance("LabelCheckboxValue") as LabelCheckboxValue; 
+        speedField.Init("Speed");
+        regenerationField = EditorWindow.CreateInstance("LabelCheckboxValue") as LabelCheckboxValue; 
+        regenerationField.Init("Regeneration");
+        diggingField = EditorWindow.CreateInstance("LabelCheckbox") as LabelCheckbox; 
+        diggingField.Init("Dig");
 
         columnContainerChoices.Add(damageField.GetVisualElement());
         columnContainerChoices.Add(speedField.GetVisualElement());

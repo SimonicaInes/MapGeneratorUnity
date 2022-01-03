@@ -15,7 +15,7 @@ public class TileRulesLayout : EditorWindow
     public LabelTextBox resourceFolderName2;
     public Button addRuleSetButton;
     private int i = 0;
-    public TileRulesLayout(VisualElement root, int id)
+    public void Init(VisualElement root, int id)
     {
         this.id = id;
         this.root = root;
@@ -82,8 +82,10 @@ public class TileRulesLayout : EditorWindow
         };
 
         
-        resourceFolderName1 = new LabelTextBox("Tile Resource Folder 1");
-        resourceFolderName2 = new LabelTextBox("Tile Resource Folder 2");
+        resourceFolderName1 = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
+        resourceFolderName1.Init("Tile Resource Folder 1");
+        resourceFolderName2 = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
+        resourceFolderName2.Init("Tile Resource Folder 2");
 
         root.Add(mainContainer);
         mainContainer.Add(title);
@@ -100,10 +102,12 @@ public class TileRulesLayout : EditorWindow
         mainContainer.Add(ruleContainer);
 
 
-
+//HERE!!!!
         addRuleSetButton.clickable.clicked += () =>
         {
-            tileRuleSets.Add(new TileRuleBox(root, i, testEventListener));
+            TileRuleBox t = EditorWindow.CreateInstance("TileRuleBox") as TileRuleBox;
+            t.Init(root, i, testEventListener);
+            tileRuleSets.Add(t);
             ruleContainer.Add(tileRuleSets[tileRuleSets.Count-1].GetVisualElement());
             i++;           
         };
@@ -112,8 +116,9 @@ public class TileRulesLayout : EditorWindow
 
     private void buttonListener(int id)
     {
-        TileRuleBox itemToBeRemoved = tileRuleSets.Find(item => item.id == id);
-        tileRuleSets.Remove(itemToBeRemoved);
+        DestroyImmediate(tileRuleSets.Find(item => item.id == id), true);
+        tileRuleSets.Remove(tileRuleSets.Find(item => item.id == id));
+
         redrawtileRule();
     }
 
@@ -122,6 +127,7 @@ public class TileRulesLayout : EditorWindow
         while (ruleContainer.childCount > 0)
         {
             ruleContainer.RemoveAt(ruleContainer.childCount - 1);
+            
         }
 
         int index = 0;

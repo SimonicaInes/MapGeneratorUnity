@@ -9,7 +9,7 @@ public class TableButtonElement : EditorWindow
 
     private float borderWidth = 0.1f;
     public Button button;
-    public TableButtonElement()
+    public void Init()
     {
         this.CreateGUI();
     }

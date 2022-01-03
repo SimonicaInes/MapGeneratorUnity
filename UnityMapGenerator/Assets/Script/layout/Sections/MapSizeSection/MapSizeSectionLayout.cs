@@ -10,7 +10,7 @@ public class MapSizeSectionLayout : EditorWindow
     public int id;
 
     VisualElement root;
-    public MapSizeSectionLayout(VisualElement root, int id)
+    public void Init(VisualElement root, int id)
     {
         this.id = id;
         this.root = root;
@@ -62,8 +62,10 @@ public class MapSizeSectionLayout : EditorWindow
             }
         };  
 
-        xContainer = new LabelTextBox("X");
-        yContainer = new LabelTextBox("Y");
+        xContainer = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
+        xContainer.Init("X");
+        yContainer = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
+        yContainer.Init("Y");
         
 
         measurementsContainer.Add(xContainer.GetVisualElement());

@@ -8,7 +8,7 @@ public class LabelCheckbox : EditorWindow
     private Label label;
     private string labelText;
     public UnityEngine.UIElements.Toggle checkbox;
-    public LabelCheckbox(string labelText)
+    public void Init(string labelText)
     {
         this.labelText = labelText;
         label = new Label(labelText);

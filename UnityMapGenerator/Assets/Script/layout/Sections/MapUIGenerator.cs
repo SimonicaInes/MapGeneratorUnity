@@ -19,7 +19,8 @@ public class MapUIGenerator : EditorWindow
     {
         // Each editor window contains a root VisualElement object
         VisualElement root = rootVisualElement;
-        mainLayout = new MainLayout(root);
+        mainLayout = EditorWindow.CreateInstance("MainLayout") as MainLayout;
+        mainLayout.Init(root);
 
     }
 

@@ -28,7 +28,7 @@ public class TileRuleBox : EditorWindow
 
     private Color darkGray = new Color(0.12f, 0.12f, 0.12f);
 
-    public TileRuleBox(VisualElement root, int id, DeleteChildEvent evt)
+    public void Init(VisualElement root, int id, DeleteChildEvent evt)
     {
         this.id = id;
         this.root = root;
@@ -149,12 +149,14 @@ public class TileRuleBox : EditorWindow
         //optionsContainer.Add(new Label ("DONE"));
 
         //Populate the options container
-        generateFloraCheckbox = new LabelCheckbox("Generate Flora ");
+        generateFloraCheckbox = EditorWindow.CreateInstance("LabelCheckbox") as LabelCheckbox;
+        generateFloraCheckbox.Init("Generate Flora ");
         optionsContainer.Add(generateFloraCheckbox.GetVisualElement());
 
-        //populate rule table container
-        //ruleTable = new RuleTable();
-        //tableContainer.Add(ruleTable.GetVisualElement());
+        //populate rule table container 
+        ruleTable = EditorWindow.CreateInstance("RuleTable") as RuleTable;
+        ruleTable.Init();
+        tableContainer.Add(ruleTable.GetVisualElement());
 
 
     }

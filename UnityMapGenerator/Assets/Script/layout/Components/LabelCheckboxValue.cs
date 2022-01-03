@@ -11,7 +11,7 @@ public class LabelCheckboxValue : EditorWindow
 
     public LabelTextBox defaultValue;
     public UnityEngine.UIElements.Toggle checkbox;
-    public LabelCheckboxValue(string labelText)
+    public void Init(string labelText)
     {
         this.labelText = labelText;
         label = new Label(labelText);
@@ -52,7 +52,8 @@ public class LabelCheckboxValue : EditorWindow
             }
         };
 
-        defaultValue = new LabelTextBox("Default Value");
+        defaultValue = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
+        defaultValue.Init("Default Value");
 
         firstContainer.Add(checkbox);
         firstContainer.Add(label);

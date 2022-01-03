@@ -7,7 +7,7 @@ public class MainLayout : EditorWindow
     public TilePropertiesLayout tilePropertiesLayout;
     public TileRulesLayout tileRulesLayout;
     //public MapSizeSectionLayout[] mapSizesSections;   //array of visual elements
-    public MainLayout(VisualElement root)
+    public void Init(VisualElement root)
     {
         this.root = root;
         this.CreateGUI();
@@ -20,11 +20,13 @@ public class MainLayout : EditorWindow
     {
         // draw all sections
         // 1. Map size section
-        mapSizeSectionLayout = new MapSizeSectionLayout(root,0);
+        mapSizeSectionLayout = EditorWindow.CreateInstance("MapSizeSectionLayout") as MapSizeSectionLayout;
+        mapSizeSectionLayout.Init(root,0);
         //tilePropertiesLayout = new TilePropertiesLayout(root, 0);
         // VisualElement e = new VisualElement();
         //e.Add(new DropdownMenu());
-        tileRulesLayout = new TileRulesLayout(root, 0);
+        tileRulesLayout = EditorWindow.CreateInstance("TileRulesLayout") as TileRulesLayout;
+        tileRulesLayout.Init(root, 0);
     }
 
 
