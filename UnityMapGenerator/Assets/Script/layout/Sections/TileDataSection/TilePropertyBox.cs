@@ -26,7 +26,7 @@ public class TilePropertyBox : EditorWindow
 
     private Color darkGray = new Color(0.12f, 0.12f, 0.12f);
 
-    public TilePropertyBox(VisualElement root, int id, DeleteChildEvent evt)
+    public void Init(VisualElement root, int id, DeleteChildEvent evt)
     {
         this.id = id;
         this.root = root;

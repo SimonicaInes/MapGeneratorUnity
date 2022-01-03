@@ -17,7 +17,7 @@ public class TilePropertiesLayout : EditorWindow
     public Button addTileProperty;
     List<TilePropertyBox> tileProperties = new List<TilePropertyBox>();
     private int i = 0;
-    public TilePropertiesLayout(VisualElement root, int id)
+    public void Init(VisualElement root, int id)
     {
         this.id = id;
         this.root = root;
@@ -69,16 +69,18 @@ public class TilePropertiesLayout : EditorWindow
         mainContainer.Add(firstContainer);
         addTileProperty.clickable.clicked += () =>
         {
-            tileProperties.Add(new TilePropertyBox(root, i, testEventListener));
+            TilePropertyBox t = EditorWindow.CreateInstance("TilePropertyBox") as TilePropertyBox;
+            t.Init(root, i, testEventListener);
+            tileProperties.Add(t);
             firstContainer.Add(tileProperties[tileProperties.Count-1].GetVisualElement());
             i++;           
         };
     }
-
+//
     private void buttonListener(int id)
     {
-        TilePropertyBox itemToBeRemoved = tileProperties.Find(item => item.id == id);
-        tileProperties.Remove(itemToBeRemoved);
+        DestroyImmediate(tileProperties.Find(item => item.id == id), true);
+        tileProperties.Remove(tileProperties.Find(item => item.id == id));
         redrawTileProperties();
     }
 

@@ -23,7 +23,7 @@ public class TileRuleBox : EditorWindow
     public LabelCheckbox generateFloraCheckbox;
 
     public RuleTable ruleTable;
-
+    public ObjectPicker objectPicker;
     public Button deleteTileRule;
 
     private Color darkGray = new Color(0.12f, 0.12f, 0.12f);
@@ -158,7 +158,11 @@ public class TileRuleBox : EditorWindow
         ruleTable.Init();
         tableContainer.Add(ruleTable.GetVisualElement());
 
-
+        
+        //object picker creation
+        objectPicker = EditorWindow.CreateInstance("ObjectPicker") as ObjectPicker;
+        objectPicker.Init(0);
+        spritePickerContainer.Add(objectPicker.GetVisualElement());
     }
     public VisualElement GetVisualElement()
     {

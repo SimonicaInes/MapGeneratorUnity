@@ -10,6 +10,8 @@ public class RuleTable : EditorWindow
     public VisualElement row2Container;
     public VisualElement row3Container;
 
+
+
     public TableButtonElement[] t = new TableButtonElement[9];
 
 
@@ -72,6 +74,10 @@ public class RuleTable : EditorWindow
         row3Container.Add(t[6].GetVisualElement());
         row3Container.Add(t[7].GetVisualElement());
         row3Container.Add(t[8].GetVisualElement());
+
+
+
+
      }
 
     

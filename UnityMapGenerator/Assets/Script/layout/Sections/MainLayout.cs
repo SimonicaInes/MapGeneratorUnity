@@ -13,6 +13,7 @@ public class MainLayout : EditorWindow
         this.CreateGUI();
         root.style.paddingRight = 5;
         root.style.paddingLeft = 5;
+        root.style.overflow = Overflow.Visible;
 
     }
 
@@ -22,9 +23,10 @@ public class MainLayout : EditorWindow
         // 1. Map size section
         mapSizeSectionLayout = EditorWindow.CreateInstance("MapSizeSectionLayout") as MapSizeSectionLayout;
         mapSizeSectionLayout.Init(root,0);
-        //tilePropertiesLayout = new TilePropertiesLayout(root, 0);
-        // VisualElement e = new VisualElement();
-        //e.Add(new DropdownMenu());
+        //2. Tile data section
+        tilePropertiesLayout = EditorWindow.CreateInstance("TilePropertiesLayout") as TilePropertiesLayout;
+        tilePropertiesLayout.Init(root, 0);
+        //3. Tile Rule Section
         tileRulesLayout = EditorWindow.CreateInstance("TileRulesLayout") as TileRulesLayout;
         tileRulesLayout.Init(root, 0);
     }
