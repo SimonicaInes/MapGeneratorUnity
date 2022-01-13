@@ -26,9 +26,11 @@ public class MapUIGenerator : EditorWindow
 
     void OnGUI() 
     {
+
         xMapValue = mainLayout.mapSizeSectionLayout.xContainer.GetFieldValueInt();
         yMapValue = mainLayout.mapSizeSectionLayout.yContainer.GetFieldValueInt();
-
+        //Object o = 
+        //Debug.Log(mainLayout.tileRulesLayout.tileRuleSets[0].objectPicker.objectField.value);
 
         // if(mainLayout.mapSizesSections.Length != 0)
         // {
@@ -41,5 +43,9 @@ public class MapUIGenerator : EditorWindow
 
         
 
+    }
+
+    private void Update() {
+        
     }
 }

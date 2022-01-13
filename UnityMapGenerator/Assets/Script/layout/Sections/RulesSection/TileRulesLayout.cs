@@ -24,7 +24,7 @@ public class TileRulesLayout : EditorWindow
         this.CreateGUI();
     }
 
-    List<TileRuleBox> tileRuleSets = new List<TileRuleBox>();
+    public List<TileRuleBox> tileRuleSets = new List<TileRuleBox>();
 
     private void CreateGUI()
     {

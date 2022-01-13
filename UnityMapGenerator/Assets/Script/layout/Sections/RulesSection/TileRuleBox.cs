@@ -18,7 +18,7 @@ public class TileRuleBox : EditorWindow
     public VisualElement topBorderContainer;
     public VisualElement bodyContainer;
     public VisualElement tableContainer;
-    public VisualElement spritePickerContainer;
+    public VisualElement TilePickerContainer;
     public VisualElement optionsContainer;
     public LabelCheckbox generateFloraCheckbox;
 
@@ -74,7 +74,8 @@ public class TileRuleBox : EditorWindow
             style = 
             {
                 flexDirection = FlexDirection.Row,
-                justifyContent = Justify.SpaceBetween
+                justifyContent = Justify.SpaceAround,
+                
             }
         };
 
@@ -86,7 +87,7 @@ public class TileRuleBox : EditorWindow
             }
         };
 
-        spritePickerContainer = new VisualElement()
+        TilePickerContainer = new VisualElement()
         {
             style = 
             {
@@ -139,14 +140,13 @@ public class TileRuleBox : EditorWindow
         mainContainer.Add(topBorderContainer);
         topBorderContainer.Add(deleteTileRule);
         mainContainer.Add(bodyContainer);
-        //add the 3 columns
-        bodyContainer.Add(tableContainer);
-        bodyContainer.Add(spritePickerContainer);
-        bodyContainer.Add(optionsContainer);
-       //each column test
-        //tableContainer.Add(new Label ("DONE"));
-        spritePickerContainer.Add(new Label ("DONE"));
-        //optionsContainer.Add(new Label ("DONE"));
+                
+        //object picker creation
+        objectPicker = EditorWindow.CreateInstance("ObjectPicker") as ObjectPicker;
+        objectPicker.Init(0);
+        //TilePickerContainer.Add(objectPicker.GetVisualElement());
+
+
 
         //Populate the options container
         generateFloraCheckbox = EditorWindow.CreateInstance("LabelCheckbox") as LabelCheckbox;
@@ -158,11 +158,11 @@ public class TileRuleBox : EditorWindow
         ruleTable.Init();
         tableContainer.Add(ruleTable.GetVisualElement());
 
-        
-        //object picker creation
-        objectPicker = EditorWindow.CreateInstance("ObjectPicker") as ObjectPicker;
-        objectPicker.Init(0);
-        spritePickerContainer.Add(objectPicker.GetVisualElement());
+        //add the 3 columns
+        bodyContainer.Add(tableContainer);
+        bodyContainer.Add(objectPicker.GetVisualElement());
+        bodyContainer.Add(optionsContainer);
+
     }
     public VisualElement GetVisualElement()
     {
