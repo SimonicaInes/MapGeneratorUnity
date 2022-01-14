@@ -27,8 +27,8 @@ public class MapUIGenerator : EditorWindow
     void OnGUI() 
     {
 
-        xMapValue = mainLayout.mapSizeSectionLayout.xContainer.GetFieldValueInt();
-        yMapValue = mainLayout.mapSizeSectionLayout.yContainer.GetFieldValueInt();
+        //xMapValue = mainLayout.mapSizeSectionLayout.xContainer.GetFieldValueInt();
+        //yMapValue = mainLayout.mapSizeSectionLayout.yContainer.GetFieldValueInt();
         //Object o = 
         //Debug.Log(mainLayout.tileRulesLayout.tileRuleSets[0].objectPicker.objectField.value);
 

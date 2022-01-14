@@ -18,7 +18,7 @@ public class TileRuleBox : EditorWindow
     public VisualElement topBorderContainer;
     public VisualElement bodyContainer;
     public VisualElement tableContainer;
-    public VisualElement TilePickerContainer;
+    public VisualElement tilePickerContainer;
     public VisualElement optionsContainer;
     public LabelCheckbox generateFloraCheckbox;
 
@@ -84,19 +84,13 @@ public class TileRuleBox : EditorWindow
             style = 
             {
                 flexDirection = FlexDirection.Column,
+                flexGrow = 1,
+                justifyContent =Justify.Center,
+                alignItems = Align.Center
             }
         };
 
-        TilePickerContainer = new VisualElement()
-        {
-            style = 
-            {
-                flexDirection = FlexDirection.Column,
-                //borderLeftColor = Color.gray,
-                //borderLeftWidth = 0.1f, 
-                //t               
-            }
-        };
+
 
         optionsContainer = new VisualElement()
         {
@@ -105,11 +99,23 @@ public class TileRuleBox : EditorWindow
                 flexDirection = FlexDirection.Column,
                 //borderLeftColor = Color.gray,
                 //borderLeftWidth = 0.1f,   
+                flexGrow = 1,
+                justifyContent = Justify.FlexStart,
+                alignItems = Align.Center,
+        
             }
         };
 
+        tilePickerContainer = new VisualElement()
+        {
+            style = 
+            {
+                flexDirection = FlexDirection.Column,
+                flexGrow = 1,
+                alignItems = Align.Center
 
-
+            }
+        };
         // BUTTON CREATION
         deleteTileRule = new Button()
         {
@@ -123,6 +129,7 @@ public class TileRuleBox : EditorWindow
                 borderRightWidth = 0,
                 borderLeftWidth = 0,
                 marginBottom = 4,
+
             }
         };
 
@@ -144,7 +151,6 @@ public class TileRuleBox : EditorWindow
         //object picker creation
         objectPicker = EditorWindow.CreateInstance("ObjectPicker") as ObjectPicker;
         objectPicker.Init(0);
-        //TilePickerContainer.Add(objectPicker.GetVisualElement());
 
 
 

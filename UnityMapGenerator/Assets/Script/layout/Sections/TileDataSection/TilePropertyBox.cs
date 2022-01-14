@@ -1,6 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 
 
 public class TilePropertyBox : EditorWindow
@@ -9,7 +10,7 @@ public class TilePropertyBox : EditorWindow
     public VisualElement root;
 
     public DeleteChildEvent evt;
-    public LabelTextBox resourceFolderName;
+    public ObjectField resourceFolderName;
     public VisualElement columnContainerChoices;
 
     public LabelCheckboxValue damageField;
@@ -108,8 +109,16 @@ public class TilePropertyBox : EditorWindow
 
         //END BUTTON CREATION
 
-        resourceFolderName = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
-        resourceFolderName.Init ("Tiles resource folder");
+        resourceFolderName = new ObjectField("Resource folder")
+        {
+            style=
+            {
+                flexDirection = FlexDirection.Column,
+                alignSelf = Align.Center,
+                alignContent = Align.Center
+            }
+        };
+        resourceFolderName.objectType = typeof(DefaultAsset);
 
         damageField = EditorWindow.CreateInstance("LabelCheckboxValue") as LabelCheckboxValue; 
         damageField.Init("Damage");
@@ -125,7 +134,7 @@ public class TilePropertyBox : EditorWindow
         columnContainerChoices.Add(regenerationField.GetVisualElement());
         columnContainerChoices.Add(diggingField.GetVisualElement());
 
-        secondContainer.Add(resourceFolderName.GetVisualElement());
+        secondContainer.Add(resourceFolderName);
         secondContainer.Add(columnContainerChoices);
 
         // firstContainer.Add(new Label("Tile Property #" + id.ToString())

@@ -1,4 +1,5 @@
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 
@@ -9,8 +10,10 @@ public class RuleTable : EditorWindow
     public VisualElement row1Container;
     public VisualElement row2Container;
     public VisualElement row3Container;
+    private Button button;
 
-
+    private float borderWidth = 0.1f;
+    private float marginValue = 10f;
 
     public TableButtonElement[] t = new TableButtonElement[9];
 
@@ -28,6 +31,10 @@ public class RuleTable : EditorWindow
             style = 
             {
                 flexDirection = FlexDirection.Column,
+                flexGrow = 1,
+                alignContent = Align.Stretch,
+                alignItems = Align.Center,
+                justifyContent = Justify.SpaceAround
             }
         };
         row1Container = new VisualElement()
@@ -35,6 +42,9 @@ public class RuleTable : EditorWindow
             style = 
             {
                 flexDirection = FlexDirection.Row,
+                alignItems = Align.Center,
+
+
             }
         };
         row2Container = new VisualElement()
@@ -42,6 +52,7 @@ public class RuleTable : EditorWindow
             style = 
             {
                 flexDirection = FlexDirection.Row,
+                alignItems = Align.Center
             }
         };
         row3Container = new VisualElement()
@@ -49,6 +60,7 @@ public class RuleTable : EditorWindow
             style = 
             {
                 flexDirection = FlexDirection.Row,
+                alignItems = Align.Center
             }
         };
 
@@ -58,8 +70,38 @@ public class RuleTable : EditorWindow
 
         for(int i= 0; i < 9; i++)
         {
+            if(i!=4)
+            {
             t[i] = EditorWindow.CreateInstance("TableButtonElement") as TableButtonElement;
             t[i].Init();
+            }
+            else
+            {
+                t[4] = null;
+                button = new Button()
+                {
+                    style=
+                    {
+                        borderBottomColor = Color.gray,
+                        borderLeftColor = Color.gray,
+                        borderRightColor = Color.gray,
+                        borderTopColor = Color.gray,
+                        borderBottomWidth = borderWidth,
+                        borderLeftWidth = borderWidth,
+                        borderRightWidth = borderWidth,
+                        borderTopWidth = borderWidth, 
+                        scale= new Scale(new Vector3(1.6f,1.4f,1f)),
+                        marginLeft = marginValue,               
+                        marginTop = marginValue,               
+                        marginBottom = marginValue,               
+                        marginRight = marginValue,
+                        backgroundImage = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Resources/Icons/middleIcon.png", typeof(Texture2D))
+                        
+                    }
+                };
+                //button.
+            }
+
             
         }
 
@@ -68,7 +110,7 @@ public class RuleTable : EditorWindow
         row1Container.Add(t[2].GetVisualElement());
 
         row2Container.Add(t[3].GetVisualElement());
-        row2Container.Add(t[4].GetVisualElement());
+        row2Container.Add(button);
         row2Container.Add(t[5].GetVisualElement());
 
         row3Container.Add(t[6].GetVisualElement());

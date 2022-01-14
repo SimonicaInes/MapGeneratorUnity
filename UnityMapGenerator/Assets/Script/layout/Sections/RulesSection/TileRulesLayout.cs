@@ -2,6 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 public class TileRulesLayout : EditorWindow
 {
     public DeleteChildEvent testEventListener;
@@ -11,8 +12,8 @@ public class TileRulesLayout : EditorWindow
     public VisualElement mainContainer;
     public VisualElement tileFolderContainer;
     public VisualElement ruleContainer;
-    public LabelTextBox resourceFolderName1;
-    public LabelTextBox resourceFolderName2;
+    public ObjectField resourceFolderName1;
+    public ObjectField resourceFolderName2;
     public Button addRuleSetButton;
     private int i = 0;
     public void Init(VisualElement root, int id)
@@ -50,6 +51,7 @@ public class TileRulesLayout : EditorWindow
                 flexDirection = FlexDirection.Column,
                 paddingTop = 5,
                 paddingBottom = 5,
+                
             }
         }; 
 
@@ -60,7 +62,10 @@ public class TileRulesLayout : EditorWindow
             {
                 flexDirection = FlexDirection.Row,
                 paddingTop = 5,
-                paddingBottom = 5  
+                paddingBottom = 5,
+                justifyContent = Justify.SpaceAround,
+
+
             }
         }; 
 
@@ -81,22 +86,28 @@ public class TileRulesLayout : EditorWindow
 
         };
 
-        
-        resourceFolderName1 = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
-        resourceFolderName1.Init("Tile Resource Folder 1");
-        resourceFolderName2 = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
-        resourceFolderName2.Init("Tile Resource Folder 2");
+        //RESOURCE FOLDERS
+        resourceFolderName1 = new ObjectField("RF1");
+        resourceFolderName1.objectType = typeof(DefaultAsset);
+        resourceFolderName1.labelElement.style.minWidth = 20;
+        resourceFolderName2 = new ObjectField("RF2");
+        resourceFolderName2.objectType = typeof(DefaultAsset);
+        resourceFolderName2.labelElement.style.minWidth = 20;
+
+
+        //END RESOURCE FOLDERS 
 
         root.Add(mainContainer);
         mainContainer.Add(title);
 
         mainContainer.Add(tileFolderContainer);
 
-        tileFolderContainer.Add(resourceFolderName1.GetVisualElement());
+        tileFolderContainer.Add(resourceFolderName1);
+
         VisualElement tranzitionSpace = new VisualElement();
         tranzitionSpace.Add(new Label("    ---->>    "));
         tileFolderContainer.Add(tranzitionSpace);
-        tileFolderContainer.Add(resourceFolderName2.GetVisualElement());
+        tileFolderContainer.Add(resourceFolderName2);
 
         mainContainer.Add(addRuleSetButton);
         mainContainer.Add(ruleContainer);
@@ -110,6 +121,7 @@ public class TileRulesLayout : EditorWindow
             tileRuleSets.Add(t);
             ruleContainer.Add(tileRuleSets[tileRuleSets.Count-1].GetVisualElement());
             i++;           
+            
         };
     }
 

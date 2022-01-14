@@ -23,7 +23,7 @@ public class ObjectPicker : Editor
     {
         this.id = id;
 
-        Texture2D defaultTexture = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Resources/Tiles/Unexplored.png", typeof(Texture2D));
+        Texture2D defaultTexture = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Resources/Icons/noTexture.png", typeof(Texture2D));
         defaultTileSprite = Sprite.Create(defaultTexture, new Rect(0, 0, defaultTexture.width, defaultTexture.height), new Vector2(0.5f, 0.5f));
         //ObjectPicker wnd = GetWindow<ObjectPicker>();
         //wnd.Close();
@@ -41,7 +41,8 @@ public class ObjectPicker : Editor
                 flexDirection = FlexDirection.Column,
                 flexGrow = 1,
                 //backgroundColor = Color.cyan,
-                flexWrap = Wrap.Wrap
+                flexWrap = Wrap.Wrap,
+                alignSelf= Align.Center
 
             }
         };
@@ -64,6 +65,10 @@ public class ObjectPicker : Editor
                 // 4
                 reassignValue();
             }
+            else
+            {
+                displaySprite.style.backgroundImage = defaultTileSprite.texture;
+            }
 
                     
         });
@@ -78,9 +83,6 @@ public class ObjectPicker : Editor
                 alignItems = Align.Center,
                 width = mainContainer.style.width,
                 
-
-                
-
             }
         };
         displaySprite = new VisualElement()
@@ -91,7 +93,7 @@ public class ObjectPicker : Editor
                 width = defaultTileSprite.texture.width*2,
                 height = defaultTileSprite.texture.height*2,
                 backgroundImage = defaultTileSprite.texture,
-
+                marginBottom = 10
             }
         };
 

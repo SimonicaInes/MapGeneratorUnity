@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class SimpleButton : EditorWindow
 {
 
-    private float borderWidth = 0.1f;
+    //private float borderWidth = 0.1f;
     public Button button;
     public void Init()
     {
