@@ -40,7 +40,7 @@ public class TilePropertiesLayout : EditorWindow
                 borderTopWidth = 0.1f,
                 marginBottom = 20,
                 paddingBottom = 5,
-
+                paddingTop = 0
      
             }
         }; 
@@ -64,7 +64,15 @@ public class TilePropertiesLayout : EditorWindow
             }
         };
         root.Add(mainContainer);
-        mainContainer.Add(new Label("Tile Properties"));
+        mainContainer.Add(new Label("Tile Properties")
+        {
+            style=
+            {
+                paddingBottom = 5,
+                paddingTop = 2,
+                unityFontStyleAndWeight = FontStyle.Bold
+            }
+        });
         mainContainer.Add(addTileProperty);
         mainContainer.Add(firstContainer);
         addTileProperty.clickable.clicked += () =>

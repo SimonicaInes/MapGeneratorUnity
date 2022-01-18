@@ -73,7 +73,13 @@ public class TileRulesLayout : EditorWindow
 
         Label title = new Label()
         {
-            text = "Tile Rules"
+            text = "Tile Rules",
+            style=
+            {
+                paddingBottom = 5,
+                paddingTop = 2,
+                unityFontStyleAndWeight = FontStyle.Bold
+            }
         };
 
         addRuleSetButton = new Button()

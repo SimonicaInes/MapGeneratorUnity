@@ -4,7 +4,7 @@ using System;
 
 public class LabelTextBox : EditorWindow
 {
-    private TextField valueField;
+    public TextField valueField;
     private Label label;
     private VisualElement mainContainer;
     private string labelText;
@@ -16,6 +16,8 @@ public class LabelTextBox : EditorWindow
             style = 
             {
                 alignSelf = Align.Center,
+                paddingTop = 5,
+                paddingBottom =5
             }
         };
         this.CreateGUI();

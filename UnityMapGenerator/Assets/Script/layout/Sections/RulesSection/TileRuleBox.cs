@@ -26,6 +26,8 @@ public class TileRuleBox : EditorWindow
     public ObjectPicker objectPicker;
     public Button deleteTileRule;
 
+    public bool[] neighboursTable = new bool[9];
+
     private Color darkGray = new Color(0.12f, 0.12f, 0.12f);
 
     public void Init(VisualElement root, int id, DeleteChildEvent evt)
@@ -168,6 +170,10 @@ public class TileRuleBox : EditorWindow
         bodyContainer.Add(tableContainer);
         bodyContainer.Add(objectPicker.GetVisualElement());
         bodyContainer.Add(optionsContainer);
+
+
+        //LOGIC ON NEIGHBOURS
+
 
     }
     public VisualElement GetVisualElement()
