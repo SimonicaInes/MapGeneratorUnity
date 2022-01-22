@@ -1,40 +1,50 @@
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.Tilemaps;
+using System.Collections.Generic;
 
 
 
 public class MapGenerator : ScriptableObject
 {
-    Grid grid;
-    GameObject rootObject;
-    GameObject tileMapObject;
-    Tilemap tileMap;
-    TilemapRenderer tilemapRenderer;
-    Texture2D noiseMap;
+    private Grid grid;
+    private GameObject rootObject;
+    private GameObject tileMapObject;
+    private Tilemap tileMap;
+    private TilemapRenderer tilemapRenderer;
+    private Texture2D noiseMap;
 
-    TerraformingLayout terraformingLayout;
-    Terraform terraform;
+    private TerraformingLayout terraformingLayout;
+    private MapPropertiesSectionLayout mapPropertiesSectionLayout;
+    private TileRulesLayout tileRulesLayout;
+    private Terraform terraform;
 
 
 
-    public void Init(TerraformingLayout terraformingLayout)
+    public void Init(TerraformingLayout terraformingLayout, MapPropertiesSectionLayout mapPropertiesSectionLayout, TileRulesLayout tileRulesLayout)
     {
-        //DEBUG TILES
-        Debug.Log("MAP!");
+        this.tileRulesLayout = tileRulesLayout;
         this.terraformingLayout = terraformingLayout;
-
+        this.mapPropertiesSectionLayout = mapPropertiesSectionLayout;
     
         //END DEBUG TILES
 
 
         GenerateGameObject();
-        InitializeMap(tileMap, 40, 40);
-        BuildPerlinNoise();
-        //BuildMap(noiseMap,t1,t2);
+        InitializeMap(tileMap, mapPropertiesSectionLayout.mapSizeX, mapPropertiesSectionLayout.mapSizeY);
+        BuildPerlinNoise(mapPropertiesSectionLayout.mapSizeX, mapPropertiesSectionLayout.mapSizeY,  mapPropertiesSectionLayout.noiseScale);
 
         // TERRAFORM
         ApplyTerraform();
+
+        //BUILD
+        BuildTileMap();
+        
+        //TILE RULES
+        ApplyTileRules();
+
+
+        
     }
 
     private void GenerateGameObject()
@@ -70,16 +80,16 @@ public class MapGenerator : ScriptableObject
         {
             for( int j=0; j< height; j++)
             {
-                tileMap.SetTile(new Vector3Int(i,j,1), t);
+                tileMap.SetTile(new Vector3Int(i,j,1), t);//asd
             }
         }
     }
 
 
-    private void BuildPerlinNoise()
+    private void BuildPerlinNoise(int width, int height, float scale)
     {
         PerlinNoiseGenerator p = new PerlinNoiseGenerator();
-        noiseMap = p.GeneratePerlinNoiseMap(40, 40, 0.51f, 8.6f);
+        noiseMap = p.GeneratePerlinNoiseMap(width, height, 0.51f, scale);
         noiseMap.filterMode = FilterMode.Point;
         noiseMap.Apply();
 
@@ -100,6 +110,27 @@ public class MapGenerator : ScriptableObject
         terraform.Init(terraformingLayout.terraformingList, terraformingLayout.terraformingRules, tileMap, noiseMap);
     }
 
+
+//APPLYING TILE RULES
+    private void ApplyTileRules()
+    {
+            int[,] logicMap = terraform.logicMap;
+            TileRulesApplicator tileRulesApplicator = ScriptableObject.CreateInstance("TileRulesApplicator") as TileRulesApplicator;
+            TerraformingList terraformingList = terraformingLayout.terraformingList;
+            tileRulesApplicator.Init(logicMap, terraformingList, tileRulesLayout, tileMap);
+    }
+
+// BUILD TILEMAP
+    private void BuildTileMap()
+    {
+        for( int i = 0; i < terraform.logicMap.GetLength(0); i++)
+        {
+            for( int j = 0; j < terraform.logicMap.GetLength(1); j++)
+            {
+                tileMap.SetTile(new Vector3Int(i, j, 1), terraform.terrains[terraform.logicMap[i,j]].terrainTile);
+            }            
+        }
+    }
 
 }
 

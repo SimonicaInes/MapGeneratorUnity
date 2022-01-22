@@ -11,15 +11,17 @@ public class TableButtonElement : EditorWindow
     private float marginValue = 10f;
     private Texture2D noNeighbourTexture;
     private Texture2D hasNeighbourTexture;
+    private Texture2D anyNeighbourTexture;
 
     public Button button;
-    public bool state; // in which TRUE = has neighbour and FALSE = doesn't have neighbour
+    public int state; // 0 = must no, 1 = must yes, 2 = ?
     public void Init()
     {
         hasNeighbourTexture = (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Resources/Icons/HasNeighbour.png", typeof(Texture2D));
         noNeighbourTexture= (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Resources/Icons/NoNeighbour.png", typeof(Texture2D));
+        anyNeighbourTexture= (Texture2D)AssetDatabase.LoadAssetAtPath("Assets/Resources/Icons/questionMark.png", typeof(Texture2D));
 
-        state = false;
+        state = 0;
         this.CreateGUI();
     }
     private void CreateGUI()
@@ -51,17 +53,16 @@ public class TableButtonElement : EditorWindow
 
         button.clickable.clicked+= () =>
         {
-            state = !state;
-            if(state)
+            if(state+1 > 2)
             {
-                button.style.backgroundImage = hasNeighbourTexture;
-               // Debug.Log(currentTexture);
+                state = 0;
             }
             else
             {
-                button.style.backgroundImage = noNeighbourTexture;
-                //Debug.Log(currentTexture);
+                state++;
             }
+            Debug.Log(state);
+            SwitchState(state);
             
             
         };
@@ -73,6 +74,33 @@ public class TableButtonElement : EditorWindow
     public Button GetVisualElement()
     {
         return this.button;
+    }
+
+    private void SwitchState(int state)
+    {
+        switch(state)
+        {
+            case 0:
+            {
+                button.style.backgroundImage = noNeighbourTexture;
+                break;
+            }
+            case 1:
+            {
+                button.style.backgroundImage = hasNeighbourTexture;
+                break;
+            }
+            case 2:
+            {
+                button.style.backgroundImage = anyNeighbourTexture;
+                break;
+            }
+            default:
+            {
+                button.style.backgroundImage = null;
+                break;
+            }
+        }
     }
 
 }

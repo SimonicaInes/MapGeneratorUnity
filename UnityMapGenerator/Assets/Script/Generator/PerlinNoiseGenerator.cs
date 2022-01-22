@@ -24,11 +24,13 @@ public class PerlinNoiseGenerator
 
 
 
+
+
     public  Texture2D GeneratePerlinNoiseMap(int mapWidth, int mapHeight, float binThreshold, float scale)
     {
         float randomRangeMIN = -2000;
         float randomRangeMAX = 1000;
-
+    
 
 
 
@@ -67,9 +69,20 @@ public class PerlinNoiseGenerator
 
     }
 
-    private void ComputeInitialNoise(float randomRangeMIN, float randomRangeMAX, float scale )
+    private void ComputeInitialNoise(float randomRangeMIN, float randomRangeMAX, float scale)
     {
+        float tempScale;
         // For each pixel in the texture...
+        if(scale == 0)
+        {
+            tempScale = 8.6f;
+        }
+        else
+        {
+            tempScale = scale;
+            Debug.Log(tempScale);
+        }
+        
 
         xOrg = Random.Range(randomRangeMIN, randomRangeMAX);
 
@@ -79,8 +92,8 @@ public class PerlinNoiseGenerator
         {
             for (int j = 0; j < noiseTex.width; j++)
             {
-                float xCoord = (float)i / noiseTex.width * scale + xOrg;
-                float yCoord = (float)j / noiseTex.height * scale + yOrg;
+                float xCoord = (float)i / noiseTex.width * tempScale + xOrg;
+                float yCoord = (float)j / noiseTex.height * tempScale + yOrg;
                 float sample = Mathf.PerlinNoise(xCoord, yCoord);
                 noiseTex.SetPixel(i, j, new Color(sample, sample, sample));
             }

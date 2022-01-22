@@ -157,9 +157,9 @@ public class TileRuleBox : EditorWindow
 
 
         //Populate the options container
-        generateFloraCheckbox = EditorWindow.CreateInstance("LabelCheckbox") as LabelCheckbox;
-        generateFloraCheckbox.Init("Generate Flora ");
-        optionsContainer.Add(generateFloraCheckbox.GetVisualElement());
+        // generateFloraCheckbox = EditorWindow.CreateInstance("LabelCheckbox") as LabelCheckbox;
+        // generateFloraCheckbox.Init("Generate Flora ");
+        //optionsContainer.Add(generateFloraCheckbox.GetVisualElement());
 
         //populate rule table container 
         ruleTable = EditorWindow.CreateInstance("RuleTable") as RuleTable;

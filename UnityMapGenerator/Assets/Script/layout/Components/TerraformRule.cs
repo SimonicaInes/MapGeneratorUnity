@@ -31,7 +31,7 @@ public class TerraformRule : EditorWindow
     private Color darkGray = new Color(0.12f, 0.12f, 0.12f);
         private float borderWidth = 2f;
 
-    private Hashtable hashtable;
+
     public void Init(int id, DeleteChildEvent evt, List<string> terraformRuleStrings)
     {
         this.terraformRuleStrings = terraformRuleStrings;
@@ -48,9 +48,11 @@ public class TerraformRule : EditorWindow
     {
 
        casesPresets.Add("Any neighbour"); 
-       casesPresets.Add("Cross neighbours"); 
-       casesPresets.Add("All neighbours"); 
-       casesPresets.Add("Corner neighbours"); 
+       casesPresets.Add("All neighbours");
+       casesPresets.Add("Any cross neighbour"); 
+       casesPresets.Add("All cross neighbours"); 
+       casesPresets.Add("All corner neighbours"); 
+       casesPresets.Add("Any corner neighbour"); 
 
        mainContainer = new VisualElement()
         {

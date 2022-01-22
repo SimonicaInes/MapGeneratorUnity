@@ -1,19 +1,25 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+using System;
 
 
 public class MapPropertiesSectionLayout : EditorWindow
 {
     public LabelTextBox xContainer, yContainer;
-    public LabelTextBox mapSeed;
+
+    public int mapSizeX, mapSizeY;
+    public float noiseScale;
+    public LabelTextBox noiseScaleContainer;
     public int id;
     private VisualElement measurementsContainer;
 
     VisualElement root;
     public void Init(VisualElement root, int id)
     {
+        mapSizeX =1;
+        mapSizeY=1;
+        noiseScale = 8.6f;
         this.id = id;
         this.root = root;
         this.CreateGUI();
@@ -36,8 +42,6 @@ public class MapPropertiesSectionLayout : EditorWindow
             }
         };
         // VisualElements objects can contain other VisualElement following a tree hierarchy.
-
-
 
 
 
@@ -78,14 +82,91 @@ public class MapPropertiesSectionLayout : EditorWindow
         xContainer.Init("X");
         yContainer = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
         yContainer.Init("Y");
-        mapSeed = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
-        mapSeed.Init("Seed");
+        noiseScaleContainer = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
+        noiseScaleContainer.Init("Noise Scale");
+
+
+        //label updates
+        xContainer.valueField.RegisterCallback<ChangeEvent<string>>(e =>
+        {
+            //Debug.Log(labelTextBox.valueField.value.ToString());
+            if(xContainer.valueField.value != null)
+            {
+                try
+                {
+                    mapSizeX = Int32.Parse(xContainer.valueField.value);
+                }
+                catch(FormatException)
+                {
+                    mapSizeX = 1;
+                    return;
+                }
+                
+            }
+            else
+            {
+                mapSizeX = 1;
+            }
+
+         
+        });
+
+        //label updates
+        yContainer.valueField.RegisterCallback<ChangeEvent<string>>(e =>
+        {
+            //Debug.Log(labelTextBox.valueField.value.ToString());
+            if(yContainer.valueField.value != null)
+            {
+                try
+                {
+                    mapSizeY = Int32.Parse(yContainer.valueField.value);
+                }
+                catch(FormatException)
+                {
+                    mapSizeY = 1;
+                    return;
+                }
+                
+            }
+            else
+            {
+                mapSizeY = 1;
+            }
+
+            
+        });
+
+        //label updates
+        noiseScaleContainer.valueField.RegisterCallback<ChangeEvent<string>>(e =>
+        {
+            //Debug.Log( noiseScale);
+            if(noiseScaleContainer.valueField.value != null)
+            {
+                try
+                {
+                    noiseScale = float.Parse(noiseScaleContainer.valueField.value);
+                    
+                }
+                catch(FormatException)
+                {
+                    noiseScale = 20f;
+                    return;
+                }
+                
+            }
+            else
+            {
+                noiseScale = 8.6f;
+            }
+
+            
+        });
 
         measurementsContainer.Add(mapProperties);
         measurementsContainer.Add(xContainer.GetVisualElement());
         measurementsContainer.Add(yContainer.GetVisualElement());
         mapProperties.Add(measurementsContainer);
-        mapProperties.Add(mapSeed.GetVisualElement());
+        mapProperties.Add(noiseScaleContainer.GetVisualElement());
         root.Add(mapProperties);
     }
 

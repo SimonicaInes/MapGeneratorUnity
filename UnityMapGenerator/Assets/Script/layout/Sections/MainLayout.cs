@@ -43,19 +43,19 @@ public class MainLayout : EditorWindow
         terraformingLayout.Init(main, 0);
 
         //4. Tile Rule Section
-        // tileRulesLayout = EditorWindow.CreateInstance("TileRulesLayout") as TileRulesLayout;
-        // tileRulesLayout.Init(main, 0);
+        tileRulesLayout = EditorWindow.CreateInstance("TileRulesLayout") as TileRulesLayout;
+        tileRulesLayout.Init(main, 0, terraformingLayout.terraformingList);
         //4.Generate button
         generateButton = new Button()
         {
             text = "Generate",
         };
-        root.Add(generateButton);
+        root.Add(generateButton);   
 
         generateButton.clickable.clicked += () =>
         {
             MapGenerator mapGenerator = ScriptableObject.CreateInstance("MapGenerator") as MapGenerator;
-            mapGenerator.Init(terraformingLayout);
+            mapGenerator.Init(terraformingLayout, mapPropertiesSectionLayout, tileRulesLayout);
         };
 
 

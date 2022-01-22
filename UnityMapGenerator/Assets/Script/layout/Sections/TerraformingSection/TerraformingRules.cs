@@ -114,7 +114,7 @@ public class TerraformingRules : Editor
         {
             terraformRuleStrings.Add(tc.terrainName);
         }
-        Debug.Log("DONE");
+        //Debug.Log("DONE");
         
         
     }
