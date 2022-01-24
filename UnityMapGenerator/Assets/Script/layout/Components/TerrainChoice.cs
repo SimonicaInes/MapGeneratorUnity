@@ -9,13 +9,20 @@ public class TerrainChoice : EditorWindow
 {
 
     public VisualElement mainContainer;
+    public VisualElement rowContainer1;
+    public VisualElement rowContainer2;
     public int terrainCodeID;
     public ObjectField objectField;
 
     public Tile terrainTile;
+    public Tile floraTile;
     public string terrainName;
     public DeleteChildEvent evt;
     public Button deleteTerrainButton;
+
+    public ObjectField floraTileObjectField;
+    public LabelCheckbox floraCheckbox;
+
 
     public void Init(int id, DeleteChildEvent evt)
     {
@@ -32,12 +39,26 @@ public class TerrainChoice : EditorWindow
         {
             style=
             {
+                flexDirection = FlexDirection.Column
+
+            }
+        };
+        rowContainer1 = new VisualElement()
+        {
+            style=
+            {
                 flexDirection = FlexDirection.Row
 
             }
         };
+        rowContainer2 = new VisualElement()
+        {
+            style=
+            {
+                flexDirection = FlexDirection.Row
 
-
+            }
+        };
        objectField =  new ObjectField()
         {
             style=
@@ -49,6 +70,34 @@ public class TerrainChoice : EditorWindow
         };
         objectField.objectType = typeof(Tile);
 
+       floraTileObjectField =  new ObjectField()
+        {
+            style=
+            {
+                flexGrow = 2,
+                alignContent = Align.Center,
+                maxWidth = 130,
+            }
+        };
+        floraTileObjectField.objectType = typeof(Tile);
+
+        floraTileObjectField.RegisterCallback<ChangeEvent<UnityEngine.Object>>(e =>
+        {
+            if (floraTileObjectField.value != null)
+            {
+                // 4
+                //Debug.Log("picked smth new");
+                floraTile = (Tile)floraTileObjectField.value;
+                //Debug.Log(terrainTile.name);
+            }
+            else
+            {
+                //Debug.Log("nah");
+                floraTile = null;
+            }
+
+                    
+        });
         objectField.RegisterCallback<ChangeEvent<UnityEngine.Object>>(e =>
         {
             if (objectField.value != null)
@@ -67,6 +116,9 @@ public class TerrainChoice : EditorWindow
                     
         });
 
+        floraCheckbox = EditorWindow.CreateInstance("LabelCheckbox") as LabelCheckbox;
+        floraCheckbox.Init("Flora");
+
         LabelTextBox labelTextBox = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
         labelTextBox.Init("Name");
 
@@ -77,8 +129,8 @@ public class TerrainChoice : EditorWindow
             terrainName = labelTextBox.valueField.value.ToString();
         });
 
-        mainContainer.Add(labelTextBox.GetVisualElement());
-        mainContainer.Add(objectField);
+        rowContainer1.Add(labelTextBox.GetVisualElement());
+        rowContainer1.Add(objectField);
 
         deleteTerrainButton = new Button()
         {
@@ -102,8 +154,11 @@ public class TerrainChoice : EditorWindow
 
         };
 
-        mainContainer.Add(deleteTerrainButton);
-
+        rowContainer1.Add(deleteTerrainButton);
+        mainContainer.Add(rowContainer1);
+        mainContainer.Add(rowContainer2);
+        rowContainer2.Add(floraCheckbox.GetVisualElement());
+        rowContainer2.Add(floraTileObjectField);
     }
 
 

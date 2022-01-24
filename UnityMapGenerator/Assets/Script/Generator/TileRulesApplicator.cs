@@ -13,7 +13,7 @@ public class TileRulesApplicator : ScriptableObject
     private TerraformingList terraformingList;
     private TileRulesLayout tileRulesLayout;
 
-    private Hashtable hashmap;
+    public Hashtable hashmap;
     private int[] terrainIDs;
     private Tilemap tilemap ; 
 
@@ -96,7 +96,7 @@ public class TileRulesApplicator : ScriptableObject
             //We read the original and resulting tile types:   so if any name from the list of existing terrains coincides with the dropdown choice,
             // we collect and store the id.
             int originalTerrainType =  (terraformingList.terrains.Find(x => x.terrainName == rs.originalTerrainType.value)).terrainCodeID;
-            int neighbouringTerrainType =  (terraformingList.terrains.Find(x => x.terrainName == rs.resultingTerrainType.value)).terrainCodeID;
+            int neighbouringTerrainType =  (terraformingList.terrains.Find(x => x.terrainName == rs.neighbouringTerrainType.value)).terrainCodeID;
             
             //we save in an arrayList the coordinates of all tiles of originalTerraintype from the hashtable
             foreach (DictionaryEntry d in hashmap)

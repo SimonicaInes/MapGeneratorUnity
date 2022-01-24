@@ -34,13 +34,15 @@ public class MainLayout : EditorWindow
         // 1. Map size section
         mapPropertiesSectionLayout = EditorWindow.CreateInstance("MapPropertiesSectionLayout") as MapPropertiesSectionLayout;
         mapPropertiesSectionLayout.Init(main,0);
-        //2. Tile data section
-        tilePropertiesLayout = EditorWindow.CreateInstance("TilePropertiesLayout") as TilePropertiesLayout;
-        tilePropertiesLayout.Init(main, 0);
+   
 
         //3. Terraforming Section
         terraformingLayout = EditorWindow.CreateInstance("TerraformingLayout") as TerraformingLayout;
         terraformingLayout.Init(main, 0);
+
+        //2. Tile data section
+        tilePropertiesLayout = EditorWindow.CreateInstance("TilePropertiesLayout") as TilePropertiesLayout;
+        tilePropertiesLayout.Init(main, 0, terraformingLayout.terraformingList);
 
         //4. Tile Rule Section
         tileRulesLayout = EditorWindow.CreateInstance("TileRulesLayout") as TileRulesLayout;
@@ -55,7 +57,7 @@ public class MainLayout : EditorWindow
         generateButton.clickable.clicked += () =>
         {
             MapGenerator mapGenerator = ScriptableObject.CreateInstance("MapGenerator") as MapGenerator;
-            mapGenerator.Init(terraformingLayout, mapPropertiesSectionLayout, tileRulesLayout);
+            mapGenerator.Init(terraformingLayout, mapPropertiesSectionLayout, tileRulesLayout, tilePropertiesLayout);
         };
 
 

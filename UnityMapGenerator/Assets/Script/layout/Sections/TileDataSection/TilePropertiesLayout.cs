@@ -15,10 +15,14 @@ public class TilePropertiesLayout : EditorWindow
     public VisualElement mainContainer;
     public VisualElement firstContainer;
     public Button addTileProperty;
-    List<TilePropertyBox> tileProperties = new List<TilePropertyBox>();
+    public List<TilePropertyBox> tileProperties = new List<TilePropertyBox>();
     private int i = 0;
-    public void Init(VisualElement root, int id)
+    private List<string> terrainsStrings = new List<string>();
+    private TerraformingList terraformingList;
+
+    public void Init(VisualElement root, int id, TerraformingList terraformingList)
     {
+        this.terraformingList = terraformingList;
         this.id = id;
         this.root = root;
         this.testEventListener = new DeleteChildEvent();
@@ -30,7 +34,15 @@ public class TilePropertiesLayout : EditorWindow
 
     private void CreateGUI()
     {
-        
+
+        Button refreshButton = new Button();
+        refreshButton.text = "REFRESH DROPDOWN LISTS";
+        refreshButton.clickable.clicked += () =>
+        {
+            RefreshStringList();
+        };
+
+
         mainContainer = new VisualElement()
         {
             style = 
@@ -73,16 +85,22 @@ public class TilePropertiesLayout : EditorWindow
                 unityFontStyleAndWeight = FontStyle.Bold
             }
         });
+        mainContainer.Add(refreshButton);
         mainContainer.Add(addTileProperty);
         mainContainer.Add(firstContainer);
         addTileProperty.clickable.clicked += () =>
         {
+            RefreshStringList();
             TilePropertyBox t = EditorWindow.CreateInstance("TilePropertyBox") as TilePropertyBox;
-            t.Init(root, i, testEventListener);
+            t.Init(root, i, testEventListener, terrainsStrings);
             tileProperties.Add(t);
             firstContainer.Add(tileProperties[tileProperties.Count-1].GetVisualElement());
             i++;           
+            
         };
+
+
+
     }
 //
     private void buttonListener(int id)
@@ -90,6 +108,7 @@ public class TilePropertiesLayout : EditorWindow
         DestroyImmediate(tileProperties.Find(item => item.id == id), true);
         tileProperties.Remove(tileProperties.Find(item => item.id == id));
         redrawTileProperties();
+        RefreshStringList();
     }
 
     private void redrawTileProperties()
@@ -104,6 +123,16 @@ public class TilePropertiesLayout : EditorWindow
         {
             firstContainer.Add(tileProperties[index++].GetVisualElement());//
         }
+    }
+
+     public void RefreshStringList()
+    {
+        terrainsStrings.Clear();
+        foreach(TerrainChoice tc in terraformingList.terrains)
+        {
+            terrainsStrings.Add(tc.terrainName);
+        }
+
     }
 }
 

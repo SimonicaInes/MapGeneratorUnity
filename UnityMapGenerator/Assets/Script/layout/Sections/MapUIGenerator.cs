@@ -7,12 +7,14 @@ public class MapUIGenerator : EditorWindow
 {
     public MainLayout mainLayout;
     public int xMapValue, yMapValue;
-
+    
     [MenuItem("Window/UI Toolkit/MapUIGenerator")]
     public static void ShowExample()
     {
         MapUIGenerator wnd = GetWindow<MapUIGenerator>();
         wnd.titleContent = new GUIContent("MapUIGenerator");
+        
+         Debug.Log(wnd.rootVisualElement.panel.visualTree.name);
     }
 
     public void CreateGUI()
@@ -21,7 +23,7 @@ public class MapUIGenerator : EditorWindow
         VisualElement root = rootVisualElement;
         mainLayout = EditorWindow.CreateInstance("MainLayout") as MainLayout;
         mainLayout.Init(root);
-
+        root.parent.style.minWidth = 600;
     }
 
     void OnGUI() 
@@ -40,7 +42,8 @@ public class MapUIGenerator : EditorWindow
 
         //     }
         // }
-
+        
+       
         
 
     }

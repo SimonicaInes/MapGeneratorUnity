@@ -1,5 +1,7 @@
 using UnityEditor;
 using UnityEngine.UIElements;
+using System;
+
 
 public class LabelCheckboxValue : EditorWindow
 {
@@ -7,13 +9,15 @@ public class LabelCheckboxValue : EditorWindow
     private VisualElement firstContainer;
     private VisualElement secondContainer;
     private Label label;
-    private string labelText;
 
     public LabelTextBox defaultValue;
     public UnityEngine.UIElements.Toggle checkbox;
+
+    public float value;
+
+
     public void Init(string labelText)
     {
-        this.labelText = labelText;
         label = new Label(labelText);
         this.CreateGUI();
     }
@@ -53,7 +57,7 @@ public class LabelCheckboxValue : EditorWindow
         };
 
         defaultValue = EditorWindow.CreateInstance("LabelTextBox") as LabelTextBox;
-        defaultValue.Init("Default Value");
+        defaultValue.Init("Value");
 
         firstContainer.Add(checkbox);
         firstContainer.Add(label);
@@ -61,7 +65,29 @@ public class LabelCheckboxValue : EditorWindow
         mainContainer.Add(firstContainer);
         mainContainer.Add(secondContainer);
 
-        
+         defaultValue.valueField.RegisterCallback<ChangeEvent<string>>(e =>
+        {
+            //Debug.Log(labelTextBox.valueField.value.ToString());
+            if(defaultValue.valueField.value != null)
+            {
+                try
+                {
+                    value = float.Parse(defaultValue.valueField.value);
+                }
+                catch(FormatException)
+                {
+                    value = 0;
+                    return;
+                }
+                
+            }
+            else
+            {
+                value = 1;
+            }
+
+         
+        });
     }
     public VisualElement GetVisualElement()
     {

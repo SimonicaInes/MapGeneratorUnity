@@ -19,7 +19,7 @@ public class RuleSet : EditorWindow
     private Button addRuleButton;
     private Button deleteRuleSetButton;
 
-    public DropdownField originalTerrainType, resultingTerrainType;
+    public DropdownField originalTerrainType, neighbouringTerrainType;
 
 
     //private float borderWidth = 0.1f;
@@ -154,16 +154,16 @@ public class RuleSet : EditorWindow
         row1Container.Add(tranzitionSpace);
         
         
-        resultingTerrainType = new DropdownField("Resulting terrain")
+        neighbouringTerrainType = new DropdownField("Neighbouring terrain")
         {
             style=
             {
                 maxWidth =170
             }
         };
-        resultingTerrainType.labelElement.style.minWidth = 45;
-        resultingTerrainType.choices = terrainStringList;
-        row1Container.Add(resultingTerrainType);
+        neighbouringTerrainType.labelElement.style.minWidth = 45;
+        neighbouringTerrainType.choices = terrainStringList;
+        row1Container.Add(neighbouringTerrainType);
 
 
 

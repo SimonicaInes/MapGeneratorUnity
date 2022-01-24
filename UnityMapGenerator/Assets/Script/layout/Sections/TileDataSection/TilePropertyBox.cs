@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.UIElements;
-
+using System.Collections.Generic;
 
 public class TilePropertyBox : EditorWindow
 {
@@ -10,25 +10,24 @@ public class TilePropertyBox : EditorWindow
     public VisualElement root;
 
     public DeleteChildEvent evt;
-    public ObjectField resourceFolderName;
+    public DropdownField dropdownField;
     public VisualElement columnContainerChoices;
 
     public LabelCheckboxValue damageField;
     public LabelCheckboxValue speedField;
-    public LabelCheckboxValue regenerationField;
-    public LabelCheckbox diggingField;
 
     private float borderWidth = 2f;
     public VisualElement mainContainer;
     public VisualElement firstContainer;
     public VisualElement secondContainer;
-
+    private List<string> terrainsStrings;
     public Button deleteTileProperty;
 
     private Color darkGray = new Color(0.12f, 0.12f, 0.12f);
 
-    public void Init(VisualElement root, int id, DeleteChildEvent evt)
+    public void Init(VisualElement root, int id, DeleteChildEvent evt, List<string> terrainsStrings)
     {
+        this.terrainsStrings = terrainsStrings;
         this.id = id;
         this.root = root;
         this.CreateGUI();
@@ -109,7 +108,7 @@ public class TilePropertyBox : EditorWindow
 
         //END BUTTON CREATION
 
-        resourceFolderName = new ObjectField("Resource folder")
+        dropdownField = new DropdownField("Terrain type")
         {
             style=
             {
@@ -118,38 +117,28 @@ public class TilePropertyBox : EditorWindow
                 alignContent = Align.Center
             }
         };
-        resourceFolderName.objectType = typeof(DefaultAsset);
+        dropdownField.choices = terrainsStrings;
 
         damageField = EditorWindow.CreateInstance("LabelCheckboxValue") as LabelCheckboxValue; 
-        damageField.Init("Damage");
+        damageField.Init("Damage Intake");
         speedField = EditorWindow.CreateInstance("LabelCheckboxValue") as LabelCheckboxValue; 
-        speedField.Init("Speed");
-        regenerationField = EditorWindow.CreateInstance("LabelCheckboxValue") as LabelCheckboxValue; 
-        regenerationField.Init("Regeneration");
-        diggingField = EditorWindow.CreateInstance("LabelCheckbox") as LabelCheckbox; 
-        diggingField.Init("Dig");
+        speedField.Init("Speed Multiplier");
+        
 
         columnContainerChoices.Add(damageField.GetVisualElement());
         columnContainerChoices.Add(speedField.GetVisualElement());
-        columnContainerChoices.Add(regenerationField.GetVisualElement());
-        columnContainerChoices.Add(diggingField.GetVisualElement());
 
-        secondContainer.Add(resourceFolderName);
+
+        secondContainer.Add(dropdownField);
         secondContainer.Add(columnContainerChoices);
 
-        // firstContainer.Add(new Label("Tile Property #" + id.ToString())
-        // {
-        //     style = 
-        //     {
-        //         fontSize = 16f
-        //     }
-        // });
 
         firstContainer.Add(deleteTileProperty);
         mainContainer.Add(firstContainer);
         mainContainer.Add(secondContainer);
         this.root.Add(mainContainer);
-    }
+        
+    }    
     public VisualElement GetVisualElement()
     {
         return this.mainContainer;
