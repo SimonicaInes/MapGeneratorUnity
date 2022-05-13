@@ -20,7 +20,7 @@
             "args": [
                 "-shared",
                 "-o",
-                "mydll.dll",
+                "MapGenDLL.dll",
                 "main.o",
                 "-W"
             ],
